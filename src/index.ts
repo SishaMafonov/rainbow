@@ -15,6 +15,10 @@ function init(): void {
         result1 = matcher(arr, fisrtSection);
         result2 = matcher(arr, secondSection);
         result3 = matcher(arr, thirdSection);
+        if (itertions % 100000000 == 0) {
+            console.log(`${itertions} have passed!`);
+            console.clear();
+        }
         if (result1 === 100 && result2 === 100 && result3 === 100) {
             break;
         }
