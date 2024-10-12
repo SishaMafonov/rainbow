@@ -7,18 +7,18 @@ function init(): void {
     let result2 = 0;
     let result3 = 0;
 
+    let bonus = 0;
+
     while(true) {
         itertions++;
-        const fisrtSection = shuffle(arr);
+
+        bonus = getRandom(0, 1000);
+        const fisrtSection = (bonus > 750) ? arr : shuffle(arr);
         const secondSection = shuffle(arr);
         const thirdSection = shuffle(arr);
         result1 = matcher(arr, fisrtSection);
         result2 = matcher(arr, secondSection);
         result3 = matcher(arr, thirdSection);
-        if (itertions % 100000000 == 0) {
-            console.log(`${itertions} have passed!`);
-            console.clear();
-        }
         if (result1 === 100 && result2 === 100 && result3 === 100) {
             break;
         }
@@ -42,6 +42,15 @@ function matcher(expected: number[], actual: number[]): number {
         }
     }
     return Math.round((match/length)*100);
+}
+
+function getRandom(min: number, max: number): number {
+    if (min > max) {
+        const temp = min;
+        min = max;
+        max = temp;
+    }
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 init();
