@@ -2,29 +2,61 @@ import { COLORS } from "./config/config";
 
 function init(): void {
     const arr = Array.from({ length: Object.keys(COLORS).length }, (_, i) => i);
-    let itertions = 0;
+    let itertions = 1000000000;
+    let index = 0;
     let result1 = 0;
     let result2 = 0;
     let result3 = 0;
 
+    let single = 0;
+    let double = 0;
+    let jackpot = 0;
+    let bonusCount = 0;
+
     let bonus = 0;
 
-    while(true) {
-        itertions++;
+    while(index < itertions) {
+        
 
         bonus = getRandom(0, 1000);
-        const fisrtSection = (bonus > 750) ? arr : shuffle(arr);
+        if (bonus > 450) {
+            bonusCount++;
+        }
+        const fisrtSection = (bonus > 450) ? arr : shuffle(arr);
         const secondSection = shuffle(arr);
         const thirdSection = shuffle(arr);
         result1 = matcher(arr, fisrtSection);
         result2 = matcher(arr, secondSection);
         result3 = matcher(arr, thirdSection);
+
         if (result1 === 100 && result2 === 100 && result3 === 100) {
-            break;
+            jackpot++;
         }
+        if (result1 === 100 && result2 !== 100 && result3 !== 100) {
+            single++;
+        }
+        if (result1 !== 100 && result2 === 100 && result3 !== 100) {
+            single++;
+        }
+        if (result1 !== 100 && result2 !== 100 && result3 === 100) {
+            single++;
+        }
+        if (result1 === 100 && result2 === 100 && result3 !== 100) {
+            double++;
+        }
+        if (result1 !== 100 && result2 === 100 && result3 === 100) {
+            double++;
+        }
+        if (result1 === 100 && result2 !== 100 && result3 === 100) {
+            double++;
+        }
+        index++;
     }   
 
-    console.log(`Mathed: ${result1}:${result2}:${result3}% with ${itertions} itertions`);
+    console.log(`Single hit: ${single}: ${single/index}`);
+    console.log(`Double hit: ${double}: ${double/index}`);
+    console.log(`Jackpot hit: ${jackpot}: ${jackpot/index}`);
+    console.log(`Bonus hit: ${bonusCount}: ${bonusCount/index}`);
 }
 
 function shuffle(arr: number[]): number[] {

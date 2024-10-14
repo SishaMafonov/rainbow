@@ -6,6 +6,7 @@
   "scripts": {
     "build": "npx rimraf dist && npx tsc",
     "run": "node dist/index.js",
+    "local": "ts-node src/index.ts",
     "test": "test"
   },
   "repository": {
@@ -20,6 +21,7 @@
   "author": "Sisha@Mafonov",
   "license": "ISC",
   "dependencies": {
-    "typescript": "5.6.3"
+    "typescript": "5.6.3",
+    "ts-node": "10.9.2"
   }
 }
